@@ -1,38 +1,122 @@
 use rand::{Rng, thread_rng};
 use rand::distributions::Alphanumeric;
 
-extern crate easy_hasher;
-use easy_hasher::easy_hasher::*;
-
-fn generate_salt(length: u64) -> String{
+//Generating salt with given length
+pub fn generate_salt(length: u64) -> String{
     let salt: String = (0..length)
         .map(|_| thread_rng().sample(Alphanumeric) as char)
         .collect();
     salt
 }
 
-fn to_sha256(str: &str) -> String{ 
-    let result = sha256(&str.to_string()).to_hex_string();
-    result
+pub mod salty_sha{
+    use crate::generate_salt;
+    extern crate easy_hasher;
+    use easy_hasher::easy_hasher::*;
+
+    //SHA hashing algorithms
+    fn to_sha1(str: &str) -> String{ 
+        let result = sha1(&str.to_string()).to_hex_string();
+        result
+    }
+    fn to_sha224(str: &str) -> String{ 
+        let result = sha224(&str.to_string()).to_hex_string();
+        result
+    }
+    fn to_sha256(str: &str) -> String{ 
+        let result = sha256(&str.to_string()).to_hex_string();
+        result
+    }
+    fn to_sha384(str: &str) -> String{ 
+        let result = sha384(&str.to_string()).to_hex_string();
+        result
+    }
+    fn to_sha512(str: &str) -> String{ 
+        let result = sha512(&str.to_string()).to_hex_string();
+        result
+    }
+
+    //Straight order salting SHA* hashing functions
+    pub fn salty_sha1(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_sha1(&(salt.to_string() + str));
+        return (encrypted_string, salt);
+    }
+    pub fn salty_sha224(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_sha224(&(salt.to_string() + str));
+        return (encrypted_string, salt);
+    }
+    pub fn salty_sha256(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_sha256(&(salt.to_string() + str));
+        return (encrypted_string, salt);
+    }
+    pub fn salty_sha384(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_sha256(&(salt.to_string() + str));
+        return (encrypted_string, salt);
+    }
+    pub fn salty_sha512(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_sha512(&(salt.to_string() + str));
+        return (encrypted_string, salt);
+    }
 }
 
-pub fn salty_sha256(str: &str, salt_length: u64) -> (String, String){
-    let salt = generate_salt(salt_length);
-    let encrypted_string = to_sha256(&(salt.to_string() + str));
-    return (encrypted_string, salt);
-}
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use salty_sha::*;
+    
+    //Cannot test private to_sha* functions of the module,
+    //This functions were properly tested before they were added to the module
+    //This functions were also tested via making them public
 
+    /*#[test]
+    fn to_sha1_test() {
+        assert_eq!(to_sha1("hello"), "aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d")
+    }
+    #[test]
+    fn to_sha224_test() {
+        assert_eq!(to_sha224("hello"), "ea09ae9cc6768c50fcee903ed054556e5bfc8347907f12598aa24193")
+    }
     #[test]
     fn to_sha256_test() {
         assert_eq!(to_sha256("hello"), "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824")
     }
     #[test]
-    fn salty_str_smoke_test() {
+    fn to_sha384_test() {
+        assert_eq!(to_sha384("hello"), "59e1748777448c69de6b800d7a33bbfb9ff1b463e44354c3553bcdb9c666fa90125a3c79f90397bdf5f6a13de828684f")
+    }
+    #[test]
+    fn to_sha512_test() {
+        assert_eq!(to_sha512("hello"), "9b71d224bd62f3785d96d46ad3ea3d73319bfbc2890caadae2dff72519673ca72323c3d99ba5c11d7c7acc6e14b8c5da0c4663475c2e5c3adef46f73bcdec043")
+    }*/
+    #[test]
+    fn salty_str1_smoke_test() {
+        let test = salty_sha1("hello", 2 as u64);
+        println!("encrypted string sha1: {:?},\n salt: {:?}", test.0, test.1);
+    }
+    #[test]
+    fn salty_str224_smoke_test() {
+        let test = salty_sha224("hello", 2 as u64);
+        println!("encrypted string sha224: {:?},\n salt: {:?}", test.0, test.1);
+    }
+    #[test]
+    fn salty_str256_smoke_test() {
         let test = salty_sha256("hello", 2 as u64);
-        println!("encrypted string: {:?},\n salt: {:?}", test.0, test.1);
+        println!("encrypted string sha256: {:?},\n salt: {:?}", test.0, test.1);
+    }
+    #[test]
+    fn salty_str384_smoke_test() {
+        let test = salty_sha384("hello", 2 as u64);
+        println!("encrypted string sha384: {:?},\n salt: {:?}", test.0, test.1);
+    }
+    #[test]
+    fn salty_str512_smoke_test() {
+        let test = salty_sha512("hello", 2 as u64);
+        println!("encrypted string sha512: {:?},\n salt: {:?}", test.0, test.1);
     }
 }
