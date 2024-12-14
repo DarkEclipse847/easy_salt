@@ -31,8 +31,15 @@
 //!     let length: u64 = 8;
 //!     let hash = salty_sha256("hello", length);
 //!     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1);
+//!     
+//!     let another_hash = salty_sha256("hello", length);
+//!     println!("Second Hash: {:?}, Second salt: {:?}", another_hash.0, another_hash.1);
+//!
+//!     assert_ne!(hash.0, another_hash.0);
 //! }
 //! ```
+//!
+//! There is a plan to change logic so instead of tuple functions will return struct with fields `hash` and `salt` respectfully for better readability
 
 use rand::{Rng, thread_rng};
 use rand::distributions::Alphanumeric;
