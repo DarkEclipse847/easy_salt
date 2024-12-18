@@ -3,7 +3,7 @@
 This is a simple crate providing salt for commonly used hashing algorithms.
 This crate will give you opportunity to generate **tuple** of type `(hash, salt)` for your needs.
 
-`__All of the code was written on Android phone using Termux. :)__`
+`All of the code was written on Android phone using Termux. :)`
 
 ## List of hashing algorithms
 Unchecked algorithms will be added soon
@@ -44,4 +44,4 @@ Unchecked algorithms will be added soon
  }
  ```
 
-There is a plan to change logic so instead of tuple functions will return struct with fields `hash` and `salt` respectfully for better r>
+There is a plan to change logic so instead of tuple functions will return struct with fields `hash` and `salt` respectfully for better readability.

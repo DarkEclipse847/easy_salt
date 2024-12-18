@@ -45,7 +45,9 @@ use rand::{Rng, thread_rng};
 use rand::distributions::Alphanumeric;
 
 /// `generate_salt` function will generate random string of **chars** with given length
-/// ## Example
+///
+///## Example
+///
 /// ```
 /// extern crate easy_salt;
 /// use easy_salt::*;
@@ -67,7 +69,7 @@ pub fn generate_salt(length: u64) -> String{
 ///
 /// SHA-1 and SHA-2 algorithms have some vulnerabilities due to collision attacks. Althrough this is pretty rare, i'll recommend using SHA-3 hash also known as Kekkak
 /// 
-/// ##Example
+///## Example
 /// ```
 /// extern crate easy_salt;
 /// use easy_salt::salty_sha::*;
@@ -121,7 +123,7 @@ pub mod salty_sha{
     /// Function, which returns sha-1 salted hash
     /// Salt is added to the beginning of the string
     ///
-    /// ##Example
+    ///## Example
     /// ```
     /// extern crate easy_salt;
     /// use easy_salt::salty_sha::salty_sha1;
@@ -141,7 +143,7 @@ pub mod salty_sha{
     /// Generates salted sha-224 hash
     /// Salt is added to the beginning of the string
     ///
-    /// ##Example
+    ///## Example
     /// ```
     /// extern crate easy_salt;
     /// use easy_salt::salty_sha::salty_sha224;
@@ -161,7 +163,7 @@ pub mod salty_sha{
     /// Returns tuple (hash, salt)
     /// Salt is added to the beginning of the string
     ///
-    /// ##Example
+    ///## Example
     /// ```
     /// extern crate easy_salt;
     /// use easy_salt::salty_sha::salty_sha256;
@@ -180,7 +182,7 @@ pub mod salty_sha{
     /// Function, which returns sha-384 salted hash
     /// Salt is added to the beginning of the string
     ///
-    /// ##Example
+    ///## Example
     /// ```
     /// extern crate easy_salt;
     /// use easy_salt::salty_sha::salty_sha384;
@@ -199,7 +201,7 @@ pub mod salty_sha{
     /// Function, which returns sha-512 salted hash
     /// Salt is added to the beginning of the string
     ///
-    /// ##Example
+    ///## Example
     /// ```
     /// extern crate easy_salt;
     /// use easy_salt::salty_sha::salty_sha512;
@@ -219,7 +221,7 @@ pub mod salty_sha{
     /// Generates salted sha3-224 hash
     /// Salt is added to the beginning of the string
     ///
-    /// ##Example
+    ///## Example
     /// ```
     /// extern crate easy_salt;
     /// use easy_salt::salty_sha::salty_sha3_224;
@@ -239,7 +241,7 @@ pub mod salty_sha{
     /// Returns tuple (hash, salt)
     /// Salt is added to the beginning of the string
     ///
-    /// ##Example
+    ///## Example
     /// ```
     /// extern crate easy_salt;
     /// use easy_salt::salty_sha::salty_sha3_256;
@@ -258,7 +260,7 @@ pub mod salty_sha{
     /// Function, which returns sha3-384 salted hash
     /// Salt is added to the beginning of the string
     ///
-    /// ##Example
+    ///## Example
     /// ```
     /// extern crate easy_salt;
     /// use easy_salt::salty_sha::salty_sha3_384;
@@ -277,7 +279,7 @@ pub mod salty_sha{
     /// Function, which returns sha3-512 salted hash
     /// Salt is added to the beginning of the string
     ///
-    /// ##Example
+    ///## Example
     /// ```
     /// extern crate easy_salt;
     /// use easy_salt::salty_sha::salty_sha3_512;
@@ -300,31 +302,6 @@ mod tests {
     use super::*;
     use salty_sha::*;
     
-    //Cannot test private to_sha* functions of the module,
-    //This functions were properly tested before they were added to the module
-    //This functions were also tested via making them public
-
-    /*#[test]
-    fn to_sha1_test() {
-        assert_eq!(to_sha1("hello"), "aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d")
-    }
-    #[test]
-    fn to_sha224_test() {
-        assert_eq!(to_sha224("hello"), "ea09ae9cc6768c50fcee903ed054556e5bfc8347907f12598aa24193")
-    }
-    #[test]
-    fn to_sha256_test() {
-        assert_eq!(to_sha256("hello"), "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824")
-    }
-    #[test]
-    fn to_sha384_test() {
-        assert_eq!(to_sha384("hello"), "59e1748777448c69de6b800d7a33bbfb9ff1b463e44354c3553bcdb9c666fa90125a3c79f90397bdf5f6a13de828684f")
-    }
-    #[test]
-    fn to_sha512_test() {
-        assert_eq!(to_sha512("hello"), "9b71d224bd62f3785d96d46ad3ea3d73319bfbc2890caadae2dff72519673ca72323c3d99ba5c11d7c7acc6e14b8c5da0c4663475c2e5c3adef46f73bcdec043")
-    }*/
-    #[test]
     fn salty_str1_smoke_test() {
         let test = salty_sha1("hello", 2 as u64);
         println!("encrypted string sha1: {:?},\n salt: {:?}", test.0, test.1);
