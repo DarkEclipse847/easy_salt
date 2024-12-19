@@ -1,4 +1,4 @@
-# easy_salt 0.1.1
+# easy_salt 0.2.0
 
 This is a simple crate providing salt for commonly used hashing algorithms.
 This crate will give you opportunity to generate **tuple** of type `(hash, salt)` for your needs.
@@ -17,10 +17,10 @@ Unchecked algorithms will be added soon
      - [x] sha3-256
      - [x] sha3-384
      - [x] sha3-512
- - [ ] MD:
-     - [ ] md2
-     - [ ] md4
-     - [ ] md5
+ - [x] MD:
+     - [x] md2
+     - [x] md4
+     - [x] md5
  - [ ] Bcrypt
  - [ ] Argon2:
      - [ ] Argon2d

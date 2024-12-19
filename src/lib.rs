@@ -12,10 +12,10 @@
 //!     - [x] sha3-256
 //!     - [x] sha3-384
 //!     - [x] sha3-512
-//! - [ ] MD:
-//!     - [ ] md2
-//!     - [ ] md4
-//!     - [ ] md5
+//! - [x] MD:
+//!     - [x] md2
+//!     - [x] md4
+//!     - [x] md5
 //! - [ ] Bcrypt
 //! - [ ] Argon2:
 //!     - [ ] Argon2d
@@ -296,34 +296,139 @@ pub mod salty_sha{
     }
 }
 
+/// This module contains MD* hashing algorithms.
+/// Althrough this hashing algorithms are vulnerable to different collision attacks and bruteforse, this functions might be helpful to save simple data, or as an example of using different algorithms.
+///
+///## Example
+/// ```
+/// extern crate easy_salt;
+/// use easy_salt::salty_md::*;
+///
+/// fn main(){
+///     let str: &str = "hello there";
+///     let hash = salty_md5(str, 12);
+///     let another_hash = salty_md5(str, 12);
+///     assert_ne!(hash.0, another_hash.0); //checking for inequality to prove that salt has been added to str
+/// }
+pub mod salty_md{
+    use crate::generate_salt;
+    extern crate easy_hasher;
+    use easy_hasher::easy_hasher::*;
+
+    fn to_md2(str: &str) -> String{ 
+        let result = md2(&str.to_string()).to_hex_string();
+        result
+    }
+    fn to_md4(str: &str) -> String{ 
+        let result = md4(&str.to_string()).to_hex_string();
+        result
+    }
+    fn to_md5(str: &str) -> String{ 
+        let result = md5(&str.to_string()).to_hex_string();
+        result
+    }
+    
+    /// Generates salted md2 string
+    /// Returns tuple (hash, salt)
+    /// Salt is added to the beginning of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_md::salty_md2;
+    /// 
+    /// fn main(){
+    ///     let hash = salty_md2("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn salty_md2(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_md2(&(salt.to_string() + str));
+        return (encrypted_string, salt);
+    }
+
+    /// Generates salted md4 string
+    /// Returns tuple (hash, salt)
+    /// Salt is added to the beginning of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_md::salty_md4;
+    /// 
+    /// fn main(){
+    ///     let hash = salty_md4("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn salty_md4(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_md4(&(salt.to_string() + str));
+        return (encrypted_string, salt);
+    }
+    
+    /// Generates salted md5 string
+    /// Returns tuple (hash, salt)
+    /// Salt is added to the beginning of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_md::salty_md5;
+    /// 
+    /// fn main(){
+    ///     let hash = salty_md5("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn salty_md5(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_md5(&(salt.to_string() + str));
+        return (encrypted_string, salt);
+    }
+}
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use salty_sha::*;
+    use salty_md::*;
+
     
-    fn salty_str1_smoke_test() {
-        let test = salty_sha1("hello", 2 as u64);
-        println!("encrypted string sha1: {:?},\n salt: {:?}", test.0, test.1);
+    #[test]
+    fn salty_md2_smoke_test(){
+        let hash = salty_md2("hello", 8);
+        println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1);
+    }
+    
+    #[test]
+    fn salty_md4_smoke_test(){
+        let hash = salty_md4("hello", 8);
+        println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1);
+    }
+    
+    #[test]
+    fn salty_md5_smoke_test(){
+        let hash = salty_md5("hello", 8);
+        println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1);
+    }
+
+    #[test]
+    fn salty_md2_assertion(){
+        let hash = salty_md2("hello", 16);
+        let another_hash = salty_md2("hello", 16);
+        assert_ne!(hash.0, another_hash.0);
     }
     #[test]
-    fn salty_str224_smoke_test() {
-        let test = salty_sha224("hello", 2 as u64);
-        println!("encrypted string sha224: {:?},\n salt: {:?}", test.0, test.1);
+    fn salty_md4_assertion(){
+        let hash = salty_md4("hello", 16);
+        let another_hash = salty_md4("hello", 16);
+        assert_ne!(hash.0, another_hash.0);
     }
     #[test]
-    fn salty_str256_smoke_test() {
-        let test = salty_sha256("hello", 2 as u64);
-        println!("encrypted string sha256: {:?},\n salt: {:?}", test.0, test.1);
-    }
-    #[test]
-    fn salty_str384_smoke_test() {
-        let test = salty_sha384("hello", 2 as u64);
-        println!("encrypted string sha384: {:?},\n salt: {:?}", test.0, test.1);
-    }
-    #[test]
-    fn salty_str512_smoke_test() {
-        let test = salty_sha512("hello", 2 as u64);
-        println!("encrypted string sha512: {:?},\n salt: {:?}", test.0, test.1);
+    fn salty_md5_assertion(){
+        let hash = salty_md5("hello", 16);
+        let another_hash = salty_md5("hello", 16);
+        assert_ne!(hash.0, another_hash.0);
     }
 }
