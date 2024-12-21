@@ -294,6 +294,184 @@ pub mod salty_sha{
         let encrypted_string = to_sha3_512(&(salt.to_string() + str));
         return (encrypted_string, salt);
     }
+
+
+
+
+    /// Function, which returns sha-1 salted hash
+    /// Salt is added to the **end** of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_sha::reverse_salty_sha1;
+    /// 
+    /// fn main(){
+    ///     //Note that sha-1 has some major vulnerabilities, be careful using it!
+    ///     let hash = reverse_salty_sha1("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn reverse_salty_sha1(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_sha1(&(str.to_string() + &salt));
+        return (encrypted_string, salt);
+    }
+
+    /// Generates salted sha-224 hash
+    /// Salt is added to the **end** of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_sha::reverse_salty_sha224;
+    /// 
+    /// fn main(){
+    ///     let hash = reverse_salty_sha224("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn reverse_salty_sha224(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_sha224(&(str.to_string() + &salt));
+        return (encrypted_string, salt);
+    }
+    
+    /// Generates salted sha-256 string
+    /// Returns tuple (hash, salt)
+    /// Salt is added to the **end** of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_sha::reverse_salty_sha256;
+    /// 
+    /// fn main(){
+    ///     let hash = reverse_salty_sha256("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn reverse_salty_sha256(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_sha256(&(str.to_string() + &salt));
+        return (encrypted_string, salt);
+    }
+
+    /// Function, which returns sha-384 salted hash
+    /// Salt is added to the **end** of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_sha::reverse_salty_sha384;
+    /// 
+    /// fn main(){
+    ///     let hash = reverse_salty_sha384("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn reverse_salty_sha384(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_sha384(&(str.to_string() + &salt));
+        return (encrypted_string, salt);
+    }
+
+    /// Function, which returns sha-512 salted hash
+    /// Salt is added to the **end** of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_sha::reverse_salty_sha512;
+    /// 
+    /// fn main(){
+    ///     let hash = reverse_salty_sha512("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn reverse_salty_sha512(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_sha512(&(str.to_string() + &salt));
+        return (encrypted_string, salt);
+    }
+    
+    
+    /// Generates salted sha3-224 hash
+    /// Salt is added to the **end** of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_sha::reverse_salty_sha3_224;
+    /// 
+    /// fn main(){
+    ///     let hash = reverse_salty_sha3_224("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn reverse_salty_sha3_224(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_sha3_224(&(str.to_string() + &salt));
+        return (encrypted_string, salt);
+    }
+    
+    /// Generates salted sha3-256 string
+    /// Returns tuple (hash, salt)
+    /// Salt is added to the **end** of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_sha::reverse_salty_sha3_256;
+    /// 
+    /// fn main(){
+    ///     let hash = reverse_salty_sha3_256("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn reverse_salty_sha3_256(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_sha3_256(&(str.to_string() + &salt));
+        return (encrypted_string, salt);
+    }
+
+    /// Function, which returns sha3-384 salted hash
+    /// Salt is added to the **end** of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_sha::reverse_salty_sha3_384;
+    /// 
+    /// fn main(){
+    ///     let hash = reverse_salty_sha3_384("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn reverse_salty_sha3_384(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_sha3_384(&(str.to_string() + &salt));
+        return (encrypted_string, salt);
+    }
+
+    /// Function, which returns sha3-512 salted hash
+    /// Salt is added to the **end** of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_sha::reverse_salty_sha3_512;
+    /// 
+    /// fn main(){
+    ///     let hash = reverse_salty_sha3_512("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn reverse_salty_sha3_512(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_sha3_512(&(str.to_string() + &salt));
+        return (encrypted_string, salt);
+    }
 }
 
 /// This module contains MD* hashing algorithms.
@@ -387,6 +565,68 @@ pub mod salty_md{
         let encrypted_string = to_md5(&(salt.to_string() + str));
         return (encrypted_string, salt);
     }
+
+
+
+    /// Generates salted md2 string
+    /// Returns tuple (hash, salt)
+    /// Salt is added to the **end** of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_md::reverse_salty_md2;
+    /// 
+    /// fn main(){
+    ///     let hash = reverse_salty_md2("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn reverse_salty_md2(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_md2(&(str.to_string() + &salt));
+        return (encrypted_string, salt);
+    }
+
+    /// Generates salted md4 string
+    /// Returns tuple (hash, salt)
+    /// Salt is added to the **end** of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_md::reverse_salty_md4;
+    /// 
+    /// fn main(){
+    ///     let hash = reverse_salty_md4("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn reverse_salty_md4(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_md4(&(str.to_string() + &salt));
+        return (encrypted_string, salt);
+    }
+    
+    /// Generates salted md5 string
+    /// Returns tuple (hash, salt)
+    /// Salt is added to the **end** of the string
+    ///
+    ///## Example
+    /// ```
+    /// extern crate easy_salt;
+    /// use easy_salt::salty_md::reverse_salty_md5;
+    /// 
+    /// fn main(){
+    ///     let hash = reverse_salty_md5("some string", 6); //first argument is string you need to be hashed, second argument is the salt length
+    ///     println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1); //Note, that variable hash is a tuple, so it returns (hash, salt)
+    /// }
+    /// ```
+    pub fn reverse_salty_md5(str: &str, salt_length: u64) -> (String, String){
+        let salt = generate_salt(salt_length);
+        let encrypted_string = to_md5(&(str.to_string() + &salt));
+        return (encrypted_string, salt);
+    }
 }
 
 #[cfg(test)]
@@ -397,7 +637,7 @@ mod tests {
     
     #[test]
     fn salty_md2_smoke_test(){
-        let hash = salty_md2("hello", 8);
+        let hash = salty_md2("hello", 158578);
         println!("Hash: {:?}, Salt: {:?}", hash.0, hash.1);
     }
     

@@ -1,4 +1,4 @@
-# easy_salt 0.2.0
+# easy_salt 0.3.0
 
 This is a simple crate providing salt for commonly used hashing algorithms.
 This crate will give you opportunity to generate **tuple** of type `(hash, salt)` for your needs.
